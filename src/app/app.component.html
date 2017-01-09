@@ -1,3 +1,48 @@
-<h1>
-  {{title}}
-</h1>
+<md-sidenav-container>
+	<md-toolbar color="primary">
+	  <span>API Playground</span>
+	</md-toolbar>
+	<md-sidenav mode="side" opened="true">
+		<md-list>
+			<a routerLink="/">
+				<md-list-item>
+					<md-icon md-list-avatar>home</md-icon>
+					<span>Forsiden</span>
+				</md-list-item>
+			</a>
+			<a routerLink="/catalog">
+				<md-list-item>
+					<md-icon md-list-avatar>folder</md-icon>
+					<span>Katalog</span>
+				</md-list-item>
+			</a>
+			<a routerLink="/orders">
+				<md-list-item>
+					<md-icon md-list-avatar>shopping_cart</md-icon>
+					<span>Ordrer</span>
+				</md-list-item>
+			</a>
+			<a routerLink="/reports">
+				<md-list-item>
+					<md-icon md-list-avatar>show_charts</md-icon>
+					<span>Rapporter</span>
+				</md-list-item>
+			</a>
+			<a routerLink="/tools">
+				<md-list-item>
+					<md-icon md-list-avatar>build</md-icon>
+					<span>Verktøy</span>
+				</md-list-item>
+			</a>
+			<a routerLink="/configuration">
+				<md-list-item>
+					<md-icon md-list-avatar>settings</md-icon>
+					<span>Innstillinger</span>
+				</md-list-item>
+			</a>
+		</md-list>
+  </md-sidenav>
+	<div class="main-content">
+		<router-outlet></router-outlet>
+	</div>
+</md-sidenav-container>
