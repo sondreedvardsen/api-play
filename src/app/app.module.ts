@@ -44,7 +44,7 @@ import { CatalogService } from './services/catalog.service';
         component: LoginComponent
       },
 			{
-        path: 'login/:code',
+        path: 'login/token',
         component: LoginComponent
       },
 			{

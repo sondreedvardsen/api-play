@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,13 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-	authUrl: string;
+	private authUrl: string;
+	private token: string;
+  private sub: any;
 
-  constructor() {
-		this.authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&redirect_uri=https://sondreedvardsen.github.io/api-play/login/&response_type=code&scope=read:products read:categories';
+  constructor(private route: ActivatedRoute) {
+		this.authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&redirect_uri=https://s3-eu-west-1.amazonaws.com/api-auth-demo/callback.html&response_type=code&scope=*';
 	}
 
   ngOnInit() {
+		this.sub = this.route.params.subscribe(params => {
+       this.token = params['token'];
+       localStorage.setItem('apiToken', this.token);
+    });
   }
 
 }
