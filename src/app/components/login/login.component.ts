@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,25 +9,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-	private authUrl: string;
-	private token: string;
   private sub: any;
 
   constructor(
 		private router: Router,
-		private route: ActivatedRoute
-	) {
-		this.authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&redirect_uri=https://s3-eu-west-1.amazonaws.com/api-auth-demo/callback.html&response_type=code&scope=read:products read:categories';
-	}
+		private route: ActivatedRoute,
+		private authService: AuthService
+	) { }
 
   ngOnInit() {
 		this.sub = this.route.params.subscribe(params => {
-			this.token = params['token'];
-			if(this.token != null) {
- 				localStorage.setItem('apiToken', this.token);
-				this.router.navigate(['/']);
+			if(params['token'] != null) {
+ 				this.authService.setToken(params['token']);
 			}
     });
   }
+
+	login() {
+		this.authService.login();
+	}
 
 }

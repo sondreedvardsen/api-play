@@ -16,6 +16,7 @@ import { ConfigurationComponent } from './components/configuration/configuration
 import { ToolsComponent } from './components/tools/tools.component';
 import { ReportsComponent } from './components/reports/reports.component';
 
+import { AuthService } from './services/auth.service';
 import { CatalogService } from './services/catalog.service';
 
 @NgModule({
@@ -69,7 +70,10 @@ import { CatalogService } from './services/catalog.service';
       }
     ])
   ],
-  providers: [CatalogService],
+  providers: [
+		AuthService,
+		CatalogService
+	],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
