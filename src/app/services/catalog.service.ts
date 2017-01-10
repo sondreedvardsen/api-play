@@ -15,7 +15,7 @@ export class CatalogService {
 															});
     let options = new RequestOptions({ headers: headers });
     return this.http
-               .get('https://api.mystore.no/shops/chips/categories', options)
+               .get('https://api.mystore.no/shops/sondreaws/categories', options)
                .map((res: Response) => res.json().data);
   }
 }
