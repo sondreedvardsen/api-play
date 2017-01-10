@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+	authUrl: string;
+
+  constructor() {
+		this.authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&redirect_uri=https://sondreedvardsen.github.io/api-play/login/&response_type=code&scope=*';
+	}
 
   ngOnInit() {
   }
