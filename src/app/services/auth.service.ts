@@ -30,9 +30,9 @@ export class AuthService {
 		if(this.apiToken != null) {
 			let tokenParts = this.apiToken.split('.');
 			let tokenPayload = JSON.parse(atob(tokenParts[1]));
-			this.host = tokenPayload['no_mystore_hosts'][0];
+			this.host = tokenPayload.no_mystore_hosts[0];
 			let date = new Date().getTime();
-			if(tokenPayload['exp'] > date) {
+			if(tokenPayload.exp > Math.floor(date / 1000)) {
 				return true;
 			} else {
 				return this.refreshToken();
