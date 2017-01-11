@@ -25,9 +25,8 @@
 
 			$.post(url, data)
 				.then(function(response) {
-					token = response;
-					console.log(token);
-					localStorage.setItem('apiToken', token);
+					localStorage.setItem('apiToken', response);
+					window.close();
 				})
 				.catch(function(error) {
 					console.log(error);
