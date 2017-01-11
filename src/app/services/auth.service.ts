@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { WindowService } from "./window.service";
 
 @Injectable()
 export class AuthService {
@@ -7,7 +8,10 @@ export class AuthService {
 	private apiToken: string;
 	host: string;
 
-  constructor(private router: Router) { }
+  constructor(
+		private router: Router,
+		private windowService: WindowService
+	) { }
 
 	getToken() {
 		if(this.loggedIn()) {
@@ -47,7 +51,8 @@ export class AuthService {
 
 	login() {
 		let authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&redirect_uri=https://s3-eu-west-1.amazonaws.com/api-auth-demo/callback.html&response_type=code&scope=read:products read:categories';
-		window.location.href = authUrl;
+		//window.location.href = authUrl;
+		this.windowService.createWindow(authUrl, 'OAuth2 Login', 500, 675);
 	}
 
 	logout() {

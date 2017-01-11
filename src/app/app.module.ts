@@ -18,6 +18,7 @@ import { ReportsComponent } from './components/reports/reports.component';
 
 import { AuthService } from './services/auth.service';
 import { CatalogService } from './services/catalog.service';
+import { WindowService } from "./services/window.service";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { CatalogService } from './services/catalog.service';
   ],
   providers: [
 		AuthService,
-		CatalogService
+		CatalogService,
+		WindowService
 	],
   bootstrap: [AppComponent]
 })

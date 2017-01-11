@@ -1,3 +1,6 @@
 md-sidenav md-icon {
 	line-height: 36px;
 }
+nav a.active md-list-item {
+	background-color: #303030;
+}
