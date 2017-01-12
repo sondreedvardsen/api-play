@@ -15,7 +15,7 @@ export class CatalogService {
 		let headers = new Headers({
 																'Content-Type': 'application/vnd.api+json',
 																'Accept': 'application/vnd.api+json',
-																'Authorization': 'Bearer ' + this.authService.getToken()
+																'Authorization': 'Bearer ' + this.authService.accessToken
 															});
     let options = new RequestOptions({ headers: headers });
     return this.http

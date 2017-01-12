@@ -7,7 +7,7 @@ export class AuthService {
 
 	private apiToken: any;
 	accessToken: string;
-	host: string;
+	host: string = 'sondreaws';
 
   constructor(
 		private router: Router,
@@ -18,6 +18,7 @@ export class AuthService {
 		this.apiToken = localStorage.getItem('apiToken');
 		if(this.apiToken != null) {
 			this.accessToken = this.apiToken.access_token;
+			console.log(this.accessToken);
 		}
 	}
 
