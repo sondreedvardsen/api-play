@@ -45,10 +45,11 @@ export class AuthService {
 	login() {
 		let url = 'https://auth.mystore.no/oauth/authorize?client_id=9&response_type=code&scope=read:products read:categories&redirect_uri=https://sondreedvardsen.github.io/api-play/auth_callback.html';
 		let windowHandle = this.windowService.createWindow(url, 'OAuth2 Login', 500, 675);
+		let that = this;
 		var pollTimer = window.setInterval(function() {
 	    if (windowHandle.closed !== false) {
 	        window.clearInterval(pollTimer);
-	        this.getToken();
+					that.getToken();
 	    }
 		}, 200);
 	}
