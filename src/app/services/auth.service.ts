@@ -7,38 +7,44 @@ export class AuthService {
 
 	private apiToken: any;
 	accessToken: string;
-	host: string = 'sondreaws';
+	refreshToken: string;
+	expireToken: number;
+	host: string;
 
   constructor(
 		private router: Router,
 		private windowService: WindowService
 	) { }
 
-	getToken() {
-		this.apiToken = localStorage.getItem('apiToken');
-		if(this.apiToken != null) {
-			this.accessToken = this.apiToken.access_token;
-			console.log(this.accessToken);
+	loggedIn() {
+		let date = new Date().getTime();
+		if(this.accessToken != null && this.expireToken > Math.floor(date / 1000)) {
+			return true;
+		} else if(this.refreshToken != null) {
+			return this.refreshApiToken();
+		} else if(localStorage.getItem('apiToken') != null) {
+			return this.registerToken();
 		}
 	}
 
-	validateToken() {
-		this.apiToken = localStorage.getItem('apiToken');
-		if(this.apiToken != null) {
-			let tokenParts = this.apiToken.split('.');
+	registerToken() {
+		let token = localStorage.getItem('apiToken');
+		if(token != null) {
+			this.apiToken = JSON.parse(token);
+			let tokenParts = this.apiToken.access_token.split('.');
 			let tokenPayload = JSON.parse(atob(tokenParts[1]));
-			this.host = tokenPayload.no_mystore_hosts[0];
 			let date = new Date().getTime();
 			if(tokenPayload.exp > Math.floor(date / 1000)) {
+				this.accessToken = this.apiToken.access_token;
+				this.refreshToken = this.apiToken.refresh_token;
+				this.host = tokenPayload.no_mystore_hosts[0];
 				return true;
-			} else {
-				return this.refreshToken();
 			}
 		}
 		return false;
 	}
 
-	refreshToken() {
+	refreshApiToken() {
 		return false;
 	}
 
@@ -48,8 +54,10 @@ export class AuthService {
 		let that = this;
 		var pollTimer = window.setInterval(function() {
 	    if (windowHandle.closed !== false) {
-	        window.clearInterval(pollTimer);
-					that.getToken();
+        window.clearInterval(pollTimer);
+				if(that.registerToken()) {
+					that.router.navigate(['/']);
+				}
 	    }
 		}, 200);
 	}
