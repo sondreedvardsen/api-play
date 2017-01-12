@@ -5,7 +5,8 @@ import { WindowService } from "./window.service";
 @Injectable()
 export class AuthService {
 
-	private apiToken: string;
+	private apiToken: any;
+	accessToken: string;
 	host: string;
 
   constructor(
@@ -14,19 +15,10 @@ export class AuthService {
 	) { }
 
 	getToken() {
-		if(this.loggedIn()) {
-			return this.apiToken;
-		} else {
-			this.logout();
+		this.apiToken = localStorage.getItem('apiToken');
+		if(this.apiToken != null) {
+			this.accessToken = this.apiToken.access_token;
 		}
-	}
-
-	setToken(apiToken: string) {
-		localStorage.setItem('apiToken', apiToken);
-	}
-
-	loggedIn() {
-		return this.validateToken();
 	}
 
 	validateToken() {
@@ -50,12 +42,12 @@ export class AuthService {
 	}
 
 	login() {
-		let authUrl = 'https://auth.mystore.no/oauth/authorize?client_id=9&response_type=code&scope=read:products read:categories&redirect_uri=https://sondreedvardsen.github.io/api-play/auth_callback.html';
-		let windowHandle = this.windowService.createWindow(authUrl, 'OAuth2 Login', 500, 675);
+		let url = 'https://auth.mystore.no/oauth/authorize?client_id=9&response_type=code&scope=read:products read:categories&redirect_uri=https://sondreedvardsen.github.io/api-play/auth_callback.html';
+		let windowHandle = this.windowService.createWindow(url, 'OAuth2 Login', 500, 675);
 		var pollTimer = window.setInterval(function() {
 	    if (windowHandle.closed !== false) {
 	        window.clearInterval(pollTimer);
-	        console.log('yey');
+	        this.getToken();
 	    }
 		}, 200);
 	}
