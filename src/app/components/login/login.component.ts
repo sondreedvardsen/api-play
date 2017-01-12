@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -9,20 +8,9 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  private sub: any;
-
-  constructor(
-		private router: Router,
-		private route: ActivatedRoute,
-		private authService: AuthService
-	) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-		this.sub = this.route.params.subscribe(params => {
-			if(params['token'] != null) {
- 				this.authService.setToken(params['token']);
-			}
-    });
   }
 
 	login() {
