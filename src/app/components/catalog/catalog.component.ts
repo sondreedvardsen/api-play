@@ -46,6 +46,7 @@ export class CatalogComponent implements OnInit {
 			if(parentId != 0) {
 				let parent = this.categories.findIndex(x => x.id == parentId);
 				this.categories[parent].attributes.children.push(category.id);
+				console.log(parent);
 			}
 		}
 		this.cat = this.categories;
